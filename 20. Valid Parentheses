@@ -1,0 +1,40 @@
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    var tmp=true;
+    other=
+        {
+        ")":"(",
+        "]":"[",
+        "}":"{"
+        };
+    needToClose=[];
+
+    for(let i=0;i<s.length;i++){
+        if(s[i]=="(" || s[i]=="[" || s[i]=="{"){
+            //if char is an open bracket
+            needToClose.push(s[i]);
+
+        }else if(other[s[i]] //if char is closing bracket
+            && needToClose.length>0 //if brackets need to be closed
+            && other[s[i]]===needToClose[needToClose.length-1]
+                //if corresponding bracket is the most recent one
+            ){
+            needToClose.pop();
+
+        }else if(other[s[i]] //if char is closing bracket
+            && (needToClose.length===0 // and either brackets dont need closing
+            || other[s[i]]!=needToClose[needToClose.length-1])
+            //or corresponding bracket is not the most recent one
+            ){
+            return false
+
+        }else{
+            //if other character do nothin
+        }
+    }
+
+    return (needToClose.length>0)?false:tmp;
+};
